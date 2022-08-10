@@ -110,6 +110,6 @@ This project is licensed under the LGPL License - see the [license](LICENSE) fil
 
 ## :loudspeaker: Release Notes
 
-### 1.0.0
+### 1.0.2
 
-* Initial version
+* First public version
