@@ -88,7 +88,7 @@ The Matomo Tracker currently supports the following builder methods:
 * `.proxyPassword(...)` The corresponding password for the basic auth proxy user. The proxy host,
   port and user name must be set as well.
 
-## :neckbeard: Development
+## :sunglasses: Development
 
 To build and locally install the library and run the tests, just call
 
