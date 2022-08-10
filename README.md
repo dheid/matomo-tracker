@@ -25,20 +25,20 @@ Include the dependency using Maven
 <dependency>
   <groupId>org.drjekyll</groupId>
   <artifactId>matomo-tracker</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 
 or Gradle with Groovy DSL:
 
 ```groovy
-implementation 'org.drjekyll:matomo-tracker:1.0.2'
+implementation 'org.drjekyll:matomo-tracker:1.0.3'
 ```
 
 or Gradle with Kotlin DSL:
 
 ```kotlin
-implementation("org.drjekyll:matomo-tracker:1.0.2")
+implementation("org.drjekyll:matomo-tracker:1.0.3")
 ```
 
 Run your build tool and add the tracker like in the following example:
@@ -75,6 +75,7 @@ The Matomo Tracker currently supports the following builder methods:
 * `.defaultSiteId(...)` If you provide a default site id, it will be taken if the action does not contain a site id.
 * `.defaultTokenAuth(...)` If you provide a default token auth, it will be taken if the action does not contain a token auth.
 * `.enabled(...)` The tracker is enabled per default. You can disable it per configuration with this flag.
+* `.logFailedTracking(...)` Will send errors to the log if the Matomo Tracking API responds with an errornous HTTP code
 * `.connectTimeout(...)` allows you to change the default connection timeout of 10 seconds. 0 is
   interpreted as infinite, null uses the system default
 * `.socketTimeout(...)` allows you to change the default socket timeout of 10 seconds. 0 is
@@ -109,6 +110,10 @@ the [tags on this repository](https://github.com/dheid/matomo-tracker/tags).
 This project is licensed under the LGPL License - see the [license](LICENSE) file for details.
 
 ## :loudspeaker: Release Notes
+
+### 1.0.3
+
+* Allow to enable connection error logging
 
 ### 1.0.2
 

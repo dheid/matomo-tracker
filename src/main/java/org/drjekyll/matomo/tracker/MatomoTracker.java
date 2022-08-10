@@ -102,6 +102,11 @@ public class MatomoTracker {
   @NonNull String userAgent = "MatomoJavaClient";
 
   /**
+   * Logs if the Matomo Tracking API endpoint responds with a errornous HTTP code
+   */
+  boolean logFailedTracking;
+
+  /**
    * Executes a POST call to the specified Matomo Tracking HTTP API endpoint.
    *
    * @param action Contains the required request parameters of the action to be tracked
@@ -176,11 +181,14 @@ public class MatomoTracker {
     }
   }
 
-  private static Void connect(HttpURLConnection connection) {
+  private Void connect(HttpURLConnection connection) {
     log.debug("Establishing {}", connection);
     try {
       connection.connect();
       if (connection.getResponseCode() > 399) {
+        if (logFailedTracking) {
+          log.error("Received error code {}", connection.getResponseCode());
+        }
         throw new TrackingFailedException("Tracking endpoint responded with code " + connection.getResponseCode());
       }
     } catch (IOException e) {
