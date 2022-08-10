@@ -17,8 +17,8 @@ jobs:
         gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
         gpg-passphrase: GPG_PASSPHRASE
     - run: |
-        git config user.email "github@daniel-heid.de"
-        git config user.name "GitHub Actions"
+        git config user.email "matomo-tracker@daniel-heid.de"
+        git config user.name "Daniel Heid"
     - run: mvn -B release:prepare release:perform
       env:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
