@@ -228,7 +228,7 @@ class MatomoTrackerTest {
     whenTracksAction();
 
     thenPostsRequest(
-      "/matomo.php?rec=1&idsite=42&action_name=Help+%2F+Feedback&url=https%3A%2F%2Fwww.daniel-heid.de%2Fportfolio&_id=6749be5b2c42af00&urlref=https%3A%2F%2Fwww.daniel-heid.de%2Freferrer&_cvar=%7B%221%22%3A%5B%22customVariable1Key%22%2C%22customVariable1Value%22%5D%2C%222%22%3A%5B%22customVariable2Key%22%2C%22customVariable2Value%22%5D%7D&_idvc=2&_viewts=1660070052&res=1024x768&lang=de%2Cde-de%3Bq%3D0.9%2Cen%3Bq%3D0.8&pv_id=lbBbxG&revenue=12.34&gt_ms=30000&ec_items=%5B%5B%22SKU%22%2C%22%22%2C%22%22%2C0%2C000000%2C0%5D%2C%5B%22SKU%22%2C%22NAME%22%2C%22CATEGORY%22%2C123%2C400000%2C0%5D%5D&token_auth=fdf6e8461ea9de33176b222519627f78&country=de&send_image=0");
+      "/matomo.php?rec=1&idsite=42&action_name=Help+%2F+Feedback&url=https%3A%2F%2Fwww.daniel-heid.de%2Fportfolio&_id=6749be5b2c42af00&urlref=https%3A%2F%2Fwww.daniel-heid.de%2Freferrer&_cvar=%7B%221%22%3A%5B%22customVariable1Key%22%2C%22customVariable1Value%22%5D%2C%222%22%3A%5B%22customVariable2Key%22%2C%22customVariable2Value%22%5D%7D&_idvc=2&_viewts=1660070052&res=1024x768&lang=de%2Cde-de%3Bq%3D0.9%2Cen%3Bq%3D0.8&pv_id=lbBbxG&revenue=12.34&gt_ms=30000&ec_items=%5B%5B%22SKU%22%2C%22%22%2C%22%22%2C0.000000%2C0%5D%2C%5B%22SKU%22%2C%22NAME%22%2C%22CATEGORY%22%2C123.400000%2C0%5D%5D&token_auth=fdf6e8461ea9de33176b222519627f78&country=de&send_image=0");
 
   }
 

@@ -1,5 +1,7 @@
 package org.drjekyll.matomo.tracker;
 
+import java.util.Locale;
+
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
@@ -31,6 +33,6 @@ public class EcommerceItem {
   Long quantity = 0L;
 
   public String toString() {
-    return String.format("[\"%s\",\"%s\",\"%s\",%f,%d]", sku, name, category, price, quantity);
+    return String.format(Locale.US, "[\"%s\",\"%s\",\"%s\",%f,%d]", sku, name, category, price, quantity);
   }
 }
