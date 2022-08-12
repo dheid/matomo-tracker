@@ -172,6 +172,7 @@ public class MatomoTracker {
     connection.setRequestProperty("Accept", "*/*");
     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
     connection.setRequestProperty("User-Agent", userAgent);
+    connection.setRequestProperty("Content-Length", "0");
 
     if (connectTimeout != null) {
       connection.setConnectTimeout((int) connectTimeout.toMillis());
