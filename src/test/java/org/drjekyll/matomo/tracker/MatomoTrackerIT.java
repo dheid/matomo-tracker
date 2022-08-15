@@ -41,8 +41,7 @@ class MatomoTrackerIT {
 
   private static final int SITE_ID = 42;
 
-  private final TrackerConfigurationBuilder trackerConfigurationBuilder = TrackerConfiguration.builder()
-    .delay(Duration.ofNanos(1L));
+  private final TrackerConfigurationBuilder trackerConfigurationBuilder = TrackerConfiguration.builder().delay(Duration.ofMillis(1L));
 
   private final Action.ActionBuilder actionBuilder = Action.builder();
 
@@ -75,7 +74,7 @@ class MatomoTrackerIT {
   private void whenTracksAction() {
     future = new MatomoTracker(trackerConfigurationBuilder.build()).track(actionBuilder.build());
     try {
-      Thread.sleep(1000L);
+      Thread.sleep(2000L);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
