@@ -1,5 +1,14 @@
 package org.drjekyll.matomo.tracker;
 
+import org.drjekyll.matomo.tracker.parameters.AcceptLanguage;
+import org.drjekyll.matomo.tracker.parameters.Country;
+import org.drjekyll.matomo.tracker.parameters.CustomVariables;
+import org.drjekyll.matomo.tracker.parameters.DeviceResolution;
+import org.drjekyll.matomo.tracker.parameters.EcommerceItems;
+import org.drjekyll.matomo.tracker.parameters.UniqueId;
+import org.drjekyll.matomo.tracker.parameters.UnixTimestamp;
+import org.drjekyll.matomo.tracker.parameters.VisitorId;
+
 import lombok.Builder;
 import lombok.Value;
 

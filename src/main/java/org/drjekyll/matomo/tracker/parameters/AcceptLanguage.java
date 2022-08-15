@@ -1,4 +1,4 @@
-package org.drjekyll.matomo.tracker;
+package org.drjekyll.matomo.tracker.parameters;
 
 import java.util.List;
 import java.util.Locale.LanguageRange;

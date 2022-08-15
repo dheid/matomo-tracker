@@ -20,24 +20,25 @@ class QueryCreator {
 
   private static final List<TrackingParameterMethod> TRACKING_PARAMETER_METHODS = initializeTrackingParameterMethods();
 
-  private final Action action;
+  private final TrackerConfiguration trackerConfiguration;
 
-  private final StringBuilder query = new StringBuilder("rec=1");
-
-  String createQuery(Integer defaultSiteId, String defaultTokenAuth) {
+  public String createQuery(Action action) {
+    StringBuilder query = new StringBuilder("rec=1");
     if (action.getSiteId() == null) {
-      query.append("&idsite=").append(defaultSiteId);
+      query.append("&idsite=").append(trackerConfiguration.getDefaultSiteId());
     }
-    if (defaultTokenAuth != null && (action.getTokenAuth() == null || action.getTokenAuth().trim().isEmpty())) {
-      query.append("&token_auth=").append(defaultTokenAuth);
+    if (trackerConfiguration.getDefaultTokenAuth() != null && (action.getTokenAuth() == null || action.getTokenAuth()
+      .trim()
+      .isEmpty())) {
+      query.append("&token_auth=").append(trackerConfiguration.getDefaultTokenAuth());
     }
     for (TrackingParameterMethod method : TRACKING_PARAMETER_METHODS) {
-      appendParameter(method);
+      appendParameter(method, action, query);
     }
     return query.toString();
   }
 
-  private void appendParameter(TrackingParameterMethod method) {
+  private static void appendParameter(TrackingParameterMethod method, Action action, StringBuilder query) {
     try {
       Object parameterValue = method.getMethod().invoke(action);
       if (parameterValue != null) {

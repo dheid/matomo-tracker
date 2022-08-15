@@ -1,7 +1,19 @@
 package org.drjekyll.matomo.tracker;
 
+import org.drjekyll.matomo.tracker.parameters.AcceptLanguage;
+import org.drjekyll.matomo.tracker.parameters.Country;
+import org.drjekyll.matomo.tracker.parameters.CustomVariable;
+import org.drjekyll.matomo.tracker.parameters.CustomVariables;
+import org.drjekyll.matomo.tracker.parameters.DeviceResolution;
+import org.drjekyll.matomo.tracker.parameters.EcommerceItem;
+import org.drjekyll.matomo.tracker.parameters.EcommerceItems;
+import org.drjekyll.matomo.tracker.parameters.UniqueId;
+import org.drjekyll.matomo.tracker.parameters.UnixTimestamp;
+import org.drjekyll.matomo.tracker.parameters.VisitorId;
 import org.junit.jupiter.api.Test;
 
+import java.net.URI;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Locale.LanguageRange;
@@ -170,7 +182,12 @@ class QueryCreatorTest {
   }
 
   private void whenCreatesQuery() {
-    query = new QueryCreator(actionBuilder.build()).createQuery(42, defaultTokenAuth);
+    query = new QueryCreator(TrackerConfiguration.builder()
+      .delay(Duration.ofNanos(1L))
+      .apiEndpoint(URI.create("http://localhost"))
+      .defaultSiteId(42)
+      .defaultTokenAuth(defaultTokenAuth)
+      .build()).createQuery(actionBuilder.build());
   }
 
 }

@@ -1,4 +1,4 @@
-package org.drjekyll.matomo.tracker;
+package org.drjekyll.matomo.tracker.parameters;
 
 import org.junit.jupiter.api.Test;
 
