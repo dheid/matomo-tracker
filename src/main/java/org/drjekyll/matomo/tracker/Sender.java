@@ -45,11 +45,12 @@ class Sender {
         HttpURLConnection connection = openConnection();
         prepareConnection(connection);
         log.debug("Sending bulk request using URI {} asynchronously", trackerConfiguration.getApiEndpoint());
+        OutputStream outputStream = null;
         try {
           connection.connect();
-          try (OutputStream os = connection.getOutputStream()) {
-            os.write(createPayload());
-          }
+          outputStream = connection.getOutputStream();
+          outputStream.write(createPayload());
+          outputStream.flush();
           if (connection.getResponseCode() > 399) {
             if (trackerConfiguration.isLogFailedTracking()) {
               log.error("Received error code {}", connection.getResponseCode());
@@ -60,6 +61,13 @@ class Sender {
         } catch (IOException e) {
           throw new ConnectionFailedException(e);
         } finally {
+          if (outputStream != null) {
+            try {
+              outputStream.close();
+            } catch (IOException e) {
+              // ignore
+            }
+          }
           connection.disconnect();
         }
       }
