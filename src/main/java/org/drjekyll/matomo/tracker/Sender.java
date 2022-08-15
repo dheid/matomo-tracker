@@ -48,8 +48,7 @@ class Sender {
         try {
           connection.connect();
           try (OutputStream os = connection.getOutputStream()) {
-            byte[] payload = createPayload();
-            os.write(payload, 0, payload.length);
+            os.write(createPayload());
           }
           if (connection.getResponseCode() > 399) {
             if (trackerConfiguration.isLogFailedTracking()) {
@@ -57,6 +56,7 @@ class Sender {
             }
             throw new TrackingFailedException("Tracking endpoint responded with code " + connection.getResponseCode());
           }
+          queries.clear();
         } catch (IOException e) {
           throw new ConnectionFailedException(e);
         } finally {
@@ -120,7 +120,6 @@ class Sender {
         payload.append(',');
       }
     }
-    queries.clear();
     payload.append(']');
     if (trackerConfiguration.getDefaultTokenAuth() != null) {
       payload.append(",\"token_auth\":\"").append(trackerConfiguration.getDefaultTokenAuth()).append('"');
