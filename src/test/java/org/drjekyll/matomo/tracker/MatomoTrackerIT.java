@@ -41,7 +41,8 @@ class MatomoTrackerIT {
 
   private static final int SITE_ID = 42;
 
-  private final TrackerConfigurationBuilder trackerConfigurationBuilder = TrackerConfiguration.builder().delay(Duration.ofMillis(1L));
+  private final TrackerConfigurationBuilder trackerConfigurationBuilder = TrackerConfiguration.builder()
+    .delay(Duration.ofMillis(1L));
 
   private final Action.ActionBuilder actionBuilder = Action.builder();
 
@@ -381,6 +382,17 @@ class MatomoTrackerIT {
       .withHeader("User-Agent", equalTo("MatomoJavaClient"))
       .withRequestBody(WireMock.equalToJson(
         "{\"requests\":[\"?rec=1&idsite=42&action_name=First&send_image=0\",\"?rec=1&idsite=42&action_name=Second&send_image=0\",\"?rec=1&idsite=42&action_name=Third&send_image=0\"]}")));
+
+  }
+
+  @Test
+  void failsOnNegativeSiteId() {
+
+    givenTrackerConfigurationWithDefaultSiteId();
+    actionBuilder.siteId(-1);
+
+    assertThatThrownBy(() -> whenTracksAction(false)).isInstanceOf(IllegalArgumentException.class).hasMessage(
+      "Site ID must not be negative");
 
   }
 
