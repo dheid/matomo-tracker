@@ -74,7 +74,7 @@ class MatomoTrackerIT {
   private void whenTracksAction() {
     future = new MatomoTracker(trackerConfigurationBuilder.build()).track(actionBuilder.build());
     try {
-      Thread.sleep(2000L);
+      Thread.sleep(3000L);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
