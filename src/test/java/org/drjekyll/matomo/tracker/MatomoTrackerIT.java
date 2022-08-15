@@ -49,6 +49,7 @@ class MatomoTrackerIT {
 
   @BeforeEach
   void givenStub() {
+    resetAllRequests();
     stubFor(post(urlPathEqualTo("/matomo.php")).willReturn(status(204)));
   }
 
@@ -66,17 +67,19 @@ class MatomoTrackerIT {
 
     trackerConfigurationBuilder.apiEndpoint(URI.create("http://localhost:8099/matomo.php")).build();
 
-    assertThatThrownBy(this::whenTracksAction).isInstanceOf(IllegalArgumentException.class).hasMessage(
+    assertThatThrownBy(() -> whenTracksAction(true)).isInstanceOf(IllegalArgumentException.class).hasMessage(
       "No default site id and not action site id is given");
 
   }
 
-  private void whenTracksAction() {
+  private void whenTracksAction(boolean wait) {
     future = new MatomoTracker(trackerConfigurationBuilder.build()).track(actionBuilder.build());
-    try {
-      Thread.sleep(3000L);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+    while (wait && WireMock.getAllServeEvents().isEmpty()) {
+      try {
+        Thread.sleep(100L);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 
@@ -85,7 +88,7 @@ class MatomoTrackerIT {
 
     givenTrackerConfigurationWithDefaultSiteId();
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest("rec=1&idsite=42&send_image=0", "46", "MatomoJavaClient");
 
@@ -111,7 +114,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.siteId(123);
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest("rec=1&idsite=123&send_image=0", "47", "MatomoJavaClient");
 
@@ -123,7 +126,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.tokenAuth("invalid-token-auth");
 
-    assertThatThrownBy(this::whenTracksAction).isInstanceOf(IllegalArgumentException.class).hasMessage(
+    assertThatThrownBy(() -> whenTracksAction(true)).isInstanceOf(IllegalArgumentException.class).hasMessage(
       "Invalid value for token_auth. Must match regex [a-z0-9]{32}");
 
   }
@@ -134,7 +137,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.flashPluginExists(true);
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest("rec=1&idsite=42&fla=1&send_image=0", "52", "MatomoJavaClient");
 
@@ -146,7 +149,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.javaPluginExists(false);
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest("rec=1&idsite=42&java=0&send_image=0", "53", "MatomoJavaClient");
 
@@ -158,7 +161,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.url("https://www.daniel-heid.de/some/page?foo=bar");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest(
       "rec=1&idsite=42&url=https%3A%2F%2Fwww.daniel-heid.de%2Fsome%2Fpage%3Ffoo%3Dbar&send_image=0",
@@ -173,7 +176,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.referrerUrl("https://www.daniel-heid.de/some/referrer?foo2=bar2");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest(
       "rec=1&idsite=42&urlref=https%3A%2F%2Fwww.daniel-heid.de%2Fsome%2Freferrer%3Ffoo2%3Dbar2&send_image=0",
@@ -188,7 +191,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.link("https://www.daniel-heid.de/some/external/link#");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest(
       "rec=1&idsite=42&link=https%3A%2F%2Fwww.daniel-heid.de%2Fsome%2Fexternal%2Flink%23&send_image=0",
@@ -203,7 +206,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     actionBuilder.download("https://www.daniel-heid.de/some/download.pdf");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest(
       "rec=1&idsite=42&download=https%3A%2F%2Fwww.daniel-heid.de%2Fsome%2Fdownload.pdf&send_image=0",
@@ -217,7 +220,7 @@ class MatomoTrackerIT {
 
     givenTrackerConfigurationWithDefaultSiteId();
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     assertThat(future).isNotCompletedExceptionally();
     verify(postRequestedFor(urlEqualTo("/matomo.php")).withHeader("Accept", equalTo("*/*"))
@@ -232,7 +235,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     trackerConfigurationBuilder.userAgent("Mozilla/5.0");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     assertThat(future).isNotCompletedExceptionally();
     verify(postRequestedFor(urlEqualTo("/matomo.php")).withHeader("Accept", equalTo("*/*"))
@@ -279,7 +282,7 @@ class MatomoTrackerIT {
       .tokenAuth("fdf6e8461ea9de33176b222519627f78")
       .country(Country.fromLanguageRanges("en-GB;q=0.7,de,de-DE;q=0.9,en;q=0.8,en-US;q=0.6"));
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     thenPostsRequest(
       "rec=1&idsite=42&action_name=Help+%2F+Feedback&url=https%3A%2F%2Fwww.daniel-heid.de%2Fportfolio&_id=6749be5b2c42af00&urlref=https%3A%2F%2Fwww.daniel-heid.de%2Freferrer&_cvar=%7B%221%22%3A%5B%22customVariable1Key%22%2C%22customVariable1Value%22%5D%2C%222%22%3A%5B%22customVariable2Key%22%2C%22customVariable2Value%22%5D%7D&_idvc=2&_viewts=1660070052&res=1024x768&lang=de%2Cde-de%3Bq%3D0.9%2Cen%3Bq%3D0.8&pv_id=lbBbxG&revenue=12.34&gt_ms=30000&ec_items=%5B%5B%22SKU%22%2C%22%22%2C%22%22%2C0.000000%2C0%5D%2C%5B%22SKU%22%2C%22NAME%22%2C%22CATEGORY%22%2C123.400000%2C0%5D%5D&token_auth=fdf6e8461ea9de33176b222519627f78&country=de&send_image=0",
@@ -296,7 +299,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     trackerConfigurationBuilder.enabled(false);
 
-    whenTracksAction();
+    whenTracksAction(false);
 
     assertThat(future).isNotCompletedExceptionally();
     verify(0, postRequestedFor(urlPathEqualTo("/matomo.php")));
@@ -331,7 +334,7 @@ class MatomoTrackerIT {
     stubFor(post(urlPathEqualTo("/failing")).willReturn(status(500)));
     trackerConfigurationBuilder.apiEndpoint(URI.create("http://localhost:8099/failing")).defaultSiteId(SITE_ID);
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     assertThat(future).isCompletedExceptionally();
 
@@ -343,7 +346,7 @@ class MatomoTrackerIT {
     givenTrackerConfigurationWithDefaultSiteId();
     trackerConfigurationBuilder.defaultTokenAuth("fdf6e8461ea9de33176b222519627f78");
 
-    whenTracksAction();
+    whenTracksAction(true);
 
     assertThat(future).isNotCompletedExceptionally();
     verify(postRequestedFor(urlEqualTo("/matomo.php"))
