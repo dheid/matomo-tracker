@@ -8,6 +8,7 @@ A lightweight client library for JVM-based applications that helps you to track 
 Matomo Tracking API:
 
 * Automatically performs bulk requests with a configurable delay (default: 1 second)
+* Keeps queries until the request was transmitted successfully: If requests fail, the queries will not get lost.
 * Supports nearly all tracking parameters
 * The request API is designed with fluent builders and immutability.
 * Performs asynchronous calls so that your application is not influenced by the Matomo endpoint speed
@@ -27,20 +28,20 @@ Include the dependency using Maven
 <dependency>
   <groupId>org.drjekyll</groupId>
   <artifactId>matomo-tracker</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.3</version>
 </dependency>
 ```
 
 or Gradle with Groovy DSL:
 
 ```groovy
-implementation 'org.drjekyll:matomo-tracker:1.1.2'
+implementation 'org.drjekyll:matomo-tracker:1.1.3'
 ```
 
 or Gradle with Kotlin DSL:
 
 ```kotlin
-implementation("org.drjekyll:matomo-tracker:1.1.2")
+implementation("org.drjekyll:matomo-tracker:1.1.3")
 ```
 
 Run your build tool and add the tracker like in the following example:
@@ -118,7 +119,7 @@ This project is licensed under the LGPL License - see the [license](LICENSE) fil
 
 ## :loudspeaker: Release Notes
 
-### 1.1.2
+### 1.1.3
 
 Requests will be sent as bulk requests now. The tracker waits a configurable duration (default: 1 second) until it sends
 out the collected requests.
