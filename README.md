@@ -125,8 +125,8 @@ out the collected requests.
 
 ### 1.0.3
 
-* Allow to enable connection error logging
+Allow to enable connection error logging
 
 ### 1.0.2
 
-* First public version
+First public version
