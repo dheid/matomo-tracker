@@ -47,21 +47,21 @@ Run your build tool and add the tracker like in the following example:
 
 ```java
 
-TrackerConfiguration config=TrackerConfiguration.builder()
+TrackerConfiguration config = TrackerConfiguration.builder()
   .apiEndpoint(URI.create("https://your-domain.net/matomo/matomo.php"))
   .defaultSiteId(42) // if not explicitly specified by action
   .build();
 
 // Prepare the tracker (stateless - can be used for multiple actions)
-  MatomoTracker tracker=new MatomoTracker(config);
+MatomoTracker tracker = new MatomoTracker(config);
 
 // Track an action
-  CompletableFuture<Void> future=tracker.track(Action.builder()
+CompletableFuture<Void> future = tracker.track(Action.builder()
   .name("User Profile / Upload Profile Picture")
   .url("https://your-domain.net/user/profile/picture")
   .visitorId(VisitorId.fromHash("some@email-adress.org".hashCode()))
   // ...
-  .build());
+.build());
 
 // If you want to ensure the request has been handled:
 if(future.isCompletedExceptionally()){
