@@ -2,6 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/org.drjekyll/matomo-tracker.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22org.drjekyll%22%20AND%20a:%22matomo-tracker%22)
 [![Java CI with Maven](https://github.com/dheid/matomo-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/dheid/matomo-tracker/actions/workflows/build.yml)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W3EER56)
 
 A lightweight client library for JVM-based applications that helps you to track page views, events, visits using the
 Matomo Tracking API:
