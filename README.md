@@ -119,6 +119,10 @@ This project is licensed under the LGPL License - see the [license](LICENSE) fil
 
 ## :loudspeaker: Release Notes
 
+### 1.1.5
+
+Dependency updates
+
 ### 1.1.4
 
 Requests will be sent as bulk requests now. The tracker waits a configurable duration (default: 1 second) until it sends
