@@ -28,20 +28,20 @@ Include the dependency using Maven
 <dependency>
   <groupId>org.drjekyll</groupId>
   <artifactId>matomo-tracker</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
 </dependency>
 ```
 
 or Gradle with Groovy DSL:
 
 ```groovy
-implementation 'org.drjekyll:matomo-tracker:1.1.4'
+implementation 'org.drjekyll:matomo-tracker:1.1.5'
 ```
 
 or Gradle with Kotlin DSL:
 
 ```kotlin
-implementation("org.drjekyll:matomo-tracker:1.1.4")
+implementation("org.drjekyll:matomo-tracker:1.1.5")
 ```
 
 Run your build tool and add the tracker like in the following example:
