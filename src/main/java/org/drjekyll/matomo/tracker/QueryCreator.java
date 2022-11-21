@@ -75,7 +75,7 @@ class QueryCreator {
           methods.add(TrackingParameterMethod.builder()
             .parameterName(trackingParameter.name())
             .method(pd.getReadMethod())
-            .pattern(regex == null || regex.trim().isEmpty() ? null : Pattern.compile(trackingParameter.regex()))
+            .pattern(regex == null || regex.isEmpty() || regex.trim().isEmpty() ? null : Pattern.compile(trackingParameter.regex()))
             .build());
         }
       }

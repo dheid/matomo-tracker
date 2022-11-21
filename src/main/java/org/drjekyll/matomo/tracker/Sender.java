@@ -137,7 +137,7 @@ class Sender {
   }
 
   private static boolean isEmpty(@Nullable String str) {
-    return str == null || str.trim().isEmpty();
+    return str == null || str.isEmpty() || str.trim().isEmpty();
   }
 
 }

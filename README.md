@@ -28,20 +28,20 @@ Include the dependency using Maven
 <dependency>
   <groupId>org.drjekyll</groupId>
   <artifactId>matomo-tracker</artifactId>
-  <version>1.1.5</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
 or Gradle with Groovy DSL:
 
 ```groovy
-implementation 'org.drjekyll:matomo-tracker:1.1.5'
+implementation 'org.drjekyll:matomo-tracker:1.2.0'
 ```
 
 or Gradle with Kotlin DSL:
 
 ```kotlin
-implementation("org.drjekyll:matomo-tracker:1.1.5")
+implementation("org.drjekyll:matomo-tracker:1.2.0")
 ```
 
 Run your build tool and add the tracker like in the following example:
@@ -118,6 +118,10 @@ the [tags on this repository](https://github.com/dheid/matomo-tracker/tags).
 This project is licensed under the LGPL License - see the [license](LICENSE) file for details.
 
 ## :loudspeaker: Release Notes
+
+### 1.2.0
+
+`Country.fromLanguageRanges` now checks whether ranges are empty on extraction of country from language ranges.
 
 ### 1.1.5
 

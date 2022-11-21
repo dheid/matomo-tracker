@@ -27,7 +27,7 @@ public class Country {
    */
   @Nullable
   public static Country fromCode(@Nullable String code) {
-    if (code == null || code.trim().isEmpty()) {
+    if (code == null || code.isEmpty() || code.trim().isEmpty()) {
       return null;
     }
     if (code.length() == 2) {
@@ -44,7 +44,7 @@ public class Country {
    */
   @Nullable
   public static Country fromLanguageRanges(@Nullable String ranges) {
-    if (ranges == null) {
+    if (ranges == null || ranges.isEmpty() || ranges.trim().isEmpty()) {
       return null;
     }
     List<LanguageRange> languageRanges = LanguageRange.parse(ranges);

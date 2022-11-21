@@ -1,6 +1,8 @@
 package org.drjekyll.matomo.tracker.parameters;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,6 +24,16 @@ class CountryTest {
     Country country = Country.fromLanguageRanges("en-GB;q=0.7,de,de-DE;q=0.9,en;q=0.8,en-US;q=0.6");
 
     assertThat(country).hasToString("de");
+
+  }
+
+  @ParameterizedTest
+  @NullAndEmptySource
+  void returnsNullOnEmptyRanges(String ranges) {
+
+    Country country = Country.fromLanguageRanges(ranges);
+
+    assertThat(country).isNull();
 
   }
 
