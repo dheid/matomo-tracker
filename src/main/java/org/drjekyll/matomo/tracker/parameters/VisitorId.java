@@ -38,9 +38,9 @@ public class VisitorId {
    */
   public static VisitorId fromHash(long hash) {
     VisitorId visitorId = new VisitorId();
-    for (int i = 0; i < 7; i++) {
-      visitorId.representation[i] = (byte) (i + hash & 0xFF );
-      hash >>= 8;
+    for (int i = Long.BYTES - 1; i >= 0; i--) {
+      visitorId.representation[i] = (byte) (hash & 0xFF);
+      hash >>= Byte.SIZE;
     }
     return visitorId;
   }
