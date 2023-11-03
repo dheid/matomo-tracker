@@ -4,6 +4,8 @@
 [![Java CI with Maven](https://github.com/dheid/matomo-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/dheid/matomo-tracker/actions/workflows/build.yml)
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W3EER56)
 
+> :warning: **This library was integrated into the [official Matomo Java Tracker library](https://github.com/matomo-org/matomo-java-tracker)**
+
 A lightweight client library for JVM-based applications that helps you to track page views, events, visits using the
 Matomo Tracking API:
 
